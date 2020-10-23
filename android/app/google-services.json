@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "144802186741",
+    "firebase_url": "https://treasureapp-6b2ff.firebaseio.com",
+    "project_id": "treasureapp-6b2ff",
+    "storage_bucket": "treasureapp-6b2ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144802186741:android:18280f76ab87932ae8ccbc",
+        "android_client_info": {
+          "package_name": "net.jeair.treasureapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144802186741-m2dlbsh6ha1ahi10hc8d0mrjbkvmc5dv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABs4zCcuvi3ijc-YEdUk1f2BQfF94jdSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144802186741-m2dlbsh6ha1ahi10hc8d0mrjbkvmc5dv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
