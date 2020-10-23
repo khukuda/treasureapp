@@ -1,0 +1,15 @@
+# This is a generated file; do not edit or check into version control.
+geofencing=/Users/khukuda/project/FlutterGeofencing/
+arcore_flutter_plugin=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/arcore_flutter_plugin-0.0.6/
+audioplayers=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.16.1/
+flutter_compass=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_compass-0.4.3/
+flutter_plugin_android_lifecycle=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.11/
+geolocator=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator-6.0.0+4/
+google_maps_flutter=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.0.3/
+path_provider=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.21/
+path_provider_linux=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+2/
+path_provider_macos=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+4/
+path_provider_windows=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-0.0.4+1/
+vibration=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/vibration-1.7.1/
+vibration_web=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/vibration_web-1.6.2/
+webview_flutter=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter-0.3.22+1/
