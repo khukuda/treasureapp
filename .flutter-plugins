@@ -1,6 +1,7 @@
 # This is a generated file; do not edit or check into version control.
 geofencing=/Users/khukuda/project/FlutterGeofencing/
 arcore_flutter_plugin=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/arcore_flutter_plugin-0.0.6/
+arkit_plugin=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/arkit_plugin-0.5.1/
 audioplayers=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.16.1/
 flutter_compass=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_compass-0.4.3/
 flutter_plugin_android_lifecycle=/Users/khukuda/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.11/

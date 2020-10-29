@@ -1,0 +1,6 @@
+framework module geofencing {
+  umbrella header "geofencing-umbrella.h"
+
+  export *
+  module * { export * }
+}

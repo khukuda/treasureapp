@@ -22,10 +22,25 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Always/When in use description</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Your location is required for this app</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>When in use description</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Motion usage description</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -43,24 +58,7 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-
-	<key>NSLocationAlwaysUsageDescription</key>
-    <string>Your location is required for this app</string>
-
-    <key>NSMotionUsageDescription</key>
-    <string>Motion usage description</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>When in use description</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Always/When in use description</string>
-
-    <key>UIBackgroundModes</key>
-    <array>
-        <string>fetch</string>
-        <string>location</string>
-    </array>
-	<key>UIStatusBarHidden</key>
-	<true/>
-
+	<key>NSCameraUsageDescription</key>
+    <string>Describe why your app needs AR here.</string>
 </dict>
 </plist>
