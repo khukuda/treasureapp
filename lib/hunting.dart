@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/rendering.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:flutter_compass/flutter_compass.dart';
@@ -17,7 +19,7 @@ class HuntingPage extends StatefulWidget {
 
 class _HuntingState extends State<HuntingPage> {
   static const int base_distance = 50; // (m)
-  static const int base_accuracy = 30;
+  static const int base_accuracy = 100;
 
   bool _is_started = false;
   double _zero_compass = 0;
@@ -30,6 +32,7 @@ class _HuntingState extends State<HuntingPage> {
   List<TreasureBox> boxes = List<TreasureBox>();
 
   ArCoreController controller;
+  ARKitController arKitController;
   StreamSubscription<Position> positionStream;
 
   @override
@@ -46,7 +49,7 @@ class _HuntingState extends State<HuntingPage> {
 
     positionStream = getPositionStream(
       desiredAccuracy: LocationAccuracy.best,
-      //distanceFilter: 1,
+      distanceFilter: 1,
     ).listen(_onGetPosition);
   }
 
@@ -56,6 +59,7 @@ class _HuntingState extends State<HuntingPage> {
     while (true) {
       await Future.delayed(Duration(seconds: 3));
       if (_compassList.length >= 10 && _last_position != null) {
+print("get:::"+_last_position.accuracy.toString());
         if (_compassList.reduce(max) - _compassList.reduce(min) < 10 &&
             _last_position.accuracy < base_accuracy) {
           break;
@@ -66,10 +70,12 @@ class _HuntingState extends State<HuntingPage> {
     _zero_position = _last_position;
     completer.complete();
 
+print("1");
     return completer.future;
   }
 
   void draw(position) {
+print("2");
     debugPrint("Current Position  lat: " +
         position.latitude.toString() +
         "   lon: " +
@@ -77,22 +83,35 @@ class _HuntingState extends State<HuntingPage> {
         "   acc: " +
         position.accuracy.toString());
 
-    _addARTestNode();
-
     boxes.forEach((TreasureBox box) {
       box.resetPosition(
           _zero_position.latitude, _zero_position.longitude, _zero_compass);
       if (box.getDistance(position.latitude, position.longitude) <
           base_distance) {
-        _addARTreasureBox(box);
+        if (Platform.isAndroid) {
+          _addARTreasureBox(box);
+        } else {
+print("_addARKitTreasureBox");
+          _addARKitTreasureBox(box);
+        }
       } else {
-        _removeARTreasureBox(box);
+        if (Platform.isAndroid) {
+          _removeARTreasureBox(box);
+        } else {
+print("3");
+          _removeARKitTreasureBox(box);
+        }
       }
     });
   }
 
   void _onNodeTap(String name) {
-    Navigator.of(context).pushReplacementNamed("/result");
+    debugPrint("On Tap: " + name);
+  }
+
+  void _onKitNodeTap(List<String> name) {
+print("4");
+    debugPrint("On Tap: " + name.first);
   }
 
   void _addARTestNode() {
@@ -102,14 +121,59 @@ class _HuntingState extends State<HuntingPage> {
       name: "TestNode",
       //objectUrl: 'https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Duck/glTF/Duck.gltf',
       //object3DFileName: "andy.sfb",
-      object3DFileName: "treasurechest01.sfb",
-      //object3DFileName: "t01.sfb",
-      scale: vector.Vector3.all(2),
-      position: vector.Vector3(0, -2, -3),
-      //rotation: vector.Vector4(0, 3, 0, 0),
+      object3DFileName: "treasurechest.sfb",
+      scale: vector.Vector3.all(3),
+      position: vector.Vector3(0, -2, -5),
+      rotation: vector.Vector4(0, 3, 0, 0),
     );
 
     controller.addArCoreNode(node);
+  }
+
+  void _addARKitTestNode() {
+print("ccc");
+//    arKitController.remove("TestNode");
+/*
+print("ddd");
+    final node = ARKitReferenceNode(
+      name: "TestNode",
+      url: "ar.scnassets/Andy.obj",
+      scale: vector.Vector3.all(3),
+      position: vector.Vector3(0, -2, -5),
+//      rotation: vector.Vector4(0, 3, 0, 0),
+    );
+
+print("eee");
+    arKitController.add(node);
+*/
+print("fff");
+//ARKitではタップ時にタップした名前が取得できなかったので、透明の四角柱をかぶせて利用する
+    arKitController.remove("shikaku");
+    final material = ARKitMaterial(
+      //lightingModelName: ARKitLightingModel.physicallyBased,
+      diffuse: ARKitMaterialProperty(
+        //color: Color((Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(0.0),
+        color: Color.fromARGB(255, 1, 134, 244).withOpacity(1.0),
+      ),
+      transparency: 0,
+    );
+    final box = ARKitBox(
+      width: 0.5,
+      height: 0.5,
+      length: 0.5,
+      chamferRadius: 0.1,
+      materials: [material],
+    );
+    final boxNode = ARKitNode(
+      geometry: box,
+      name: "shikaku",
+      scale: vector.Vector3.all(1),
+      position: vector.Vector3(0, -2, -5),
+    );
+
+print("ggg");
+    arKitController.add(boxNode);
+print("hhh");
   }
 
   void _addARTreasureBox(TreasureBox box) {
@@ -131,21 +195,69 @@ class _HuntingState extends State<HuntingPage> {
 
     final node = ArCoreReferenceNode(
       name: box.name,
-      object3DFileName: "treasurechest2.sfb",
+      object3DFileName: "treasurechest.sfb",
       scale: vector.Vector3.all(3),
-      position: vector.Vector3(box.x, -2, box.z),
+      position: vector.Vector3(box.x, -1, box.z),
     );
 
     controller.addArCoreNode(node);
     //controller.addArCoreNodeWithAnchor(node);
   }
 
+  void _addARKitTreasureBox(TreasureBox box) {
+print("5");
+    arKitController.remove(box.name);
+
+    final node = ARKitReferenceNode(
+      name: box.name,
+      url: "ar.scnassets/Andy.obj",
+      scale: vector.Vector3.all(3),
+      position: vector.Vector3(box.x, -1, box.z),
+    );
+
+print("6");
+    arKitController.add(node);
+
+//ARKitではタップ時にタップした名前が取得できなかったので、透明の四角柱をかぶせて利用する
+    arKitController.remove("shikaku2");
+    final material = ARKitMaterial(
+      //lightingModelName: ARKitLightingModel.physicallyBased,
+      diffuse: ARKitMaterialProperty(
+        //color: Color((Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(0.0),
+        color: Color.fromARGB(255, 1, 134, 244).withOpacity(1.0),
+      ),
+      transparency: 0,
+    );
+    final box2 = ARKitBox(
+      width: 0.5,
+      height: 0.5,
+      length: 0.5,
+      chamferRadius: 0.1,
+      materials: [material],
+    );
+    final boxNode = ARKitNode(
+      geometry: box2,
+      name: "shikaku2",
+      scale: vector.Vector3.all(1),
+      position: vector.Vector3(box.x, -1, box.z),
+    );
+
+print("7");
+    arKitController.add(boxNode);
+  }
+
   void _removeARTreasureBox(TreasureBox box) {
     controller.removeNode(nodeName: box.name);
   }
 
+  void _removeARKitTreasureBox(TreasureBox box) {
+print("8");
+    arKitController.remove(box.name);
+  }
+
   void _onGetPosition(Position position) {
     double acc = position.accuracy;
+print("get:" + acc.toString());
     if (position.accuracy < base_accuracy + 5) {
       _last_position = position;
       if (_zero_position == null) {
@@ -153,6 +265,7 @@ class _HuntingState extends State<HuntingPage> {
         _zero_compass = _compass;
       }
       if (_is_started) {
+print("draw");
         draw(position);
       }
     }
@@ -164,7 +277,18 @@ class _HuntingState extends State<HuntingPage> {
     _is_started = true;
     //_addSphere();
 
-    //_addARTestNode();
+    _addARTestNode();
+  }
+
+  void _onARKitViewCreated(ARKitController arKitController) {
+print("aaa");
+    this.arKitController = arKitController;
+//    this.arKitController.onNodeTap = (nodes) => _onKitNodeTap;
+    _is_started = true;
+    //_addSphere();
+print("bbb");
+
+    _addARKitTestNode();
   }
 
   void _onCompassData(double data) {
@@ -209,14 +333,28 @@ class _HuntingState extends State<HuntingPage> {
               );
             } else {
               // 未
-              return Stack(
-                children: <Widget>[
-                  ArCoreView(
-                    onArCoreViewCreated: _onArCoreViewCreated,
-                    enableTapRecognizer: true,
-                  ),
-                ],
-              );
+print("-----------");
+              if (Platform.isAndroid) {
+print("-----------android");
+                return Stack(
+                  children: <Widget>[
+                    ArCoreView(
+                      onArCoreViewCreated: _onArCoreViewCreated,
+                      enableTapRecognizer: true,
+                    ),
+                  ],
+                );
+              } else {
+print("-----------ios");
+                return Stack(
+                  children: <Widget>[
+                    ARKitSceneView(
+                      onARKitViewCreated: _onARKitViewCreated,
+                      enableTapRecognizer: true,
+                    ),
+                  ],
+                );
+              }
             }
           },
         ),
@@ -226,8 +364,14 @@ class _HuntingState extends State<HuntingPage> {
 
   @override
   void dispose() {
-    if (controller != null) {
-      controller.dispose();
+    if (Platform.isAndroid) {
+      if (controller != null) {
+        controller.dispose();
+      }
+    } else {
+      if (arKitController != null) {
+        arKitController.dispose();
+      }
     }
     super.dispose();
   }
