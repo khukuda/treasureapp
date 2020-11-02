@@ -38,19 +38,19 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   void dispose() {
-    if(_audioPlayer!=null){
+    if (_audioPlayer != null) {
       _audioPlayer.dispose();
     }
     super.dispose();
   }
 
   void se() async {
-    try{
+    try {
       //await _audioPlayer.resume();
       //await _audioPlayer.play("assets/decision7.mp3", isLocal: true);
       await _player.play("decision7.mp3");
       Vibration.vibrate();
-    } catch(ex){
+    } catch (ex) {
       debugPrint("Exception: " + ex.toString());
     }
   }
@@ -72,42 +72,30 @@ class _MenuPageState extends State<MenuPage> {
             Spacer(
               flex: 3,
             ),
-            MenuButton01(
+            MenuButton(
               text: "ゲーム概要",
-              onPressed: () {
-                se();
-                Navigator.of(context).pushNamed("/about");
-              },
+              onPressed: () => Navigator.of(context).pushNamed("/about"),
             ),
             Spacer(
               flex: 1,
             ),
-            MenuButton01(
+            MenuButton(
               text: "コインの枚数を確認",
-              onPressed: () {
-                se();
-                Navigator.of(context).pushNamed("/map");
-              },
+              onPressed: () => Navigator.of(context).pushNamed("/map"),
             ),
             Spacer(
               flex: 1,
             ),
-            MenuButton01(
+            MenuButton(
               text: "景品に応募する",
-              onPressed: () {
-                se();
-                Navigator.of(context).pushNamed("/form0");
-              },
+              onPressed: () => Navigator.of(context).pushNamed("/form0"),
             ),
             Spacer(
               flex: 1,
             ),
-            MenuButton01(
+            MenuButton(
               text: "宝箱を探す",
-              onPressed: () {
-                se();
-                Navigator.of(context).pushNamed("/hunting");
-              },
+              onPressed: () => Navigator.of(context).pushNamed("/hunting"),
             ),
             Spacer(
               flex: 6,
@@ -241,6 +229,64 @@ class _MenuPageState extends State<MenuPage> {
         child: Icon(Icons.add),
       ), 
       */ // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class MenuButton extends StatelessWidget {
+  static AudioCache _player = AudioCache();
+  final String text;
+  final Function() onPressed;
+
+  const MenuButton({
+    @required this.text,
+    @required this.onPressed
+  });
+
+  void se() async {
+    try {
+      //await _audioPlayer.resume();
+      //await _audioPlayer.play("assets/decision7.mp3", isLocal: true);
+      _player.play("audio/decision22.mp3");
+      //Vibration.vibrate();
+    } catch (ex) {
+      debugPrint("Exception: " + ex.toString());
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _player.load("audio/decision22.mp3");
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 320.0,
+        minHeight: 60.0,
+      ),
+      child: RaisedButton(
+        onPressed: () {
+          se();
+          onPressed();
+        },
+        padding: EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 10),
+        shape: StadiumBorder(),
+        color: Colors.lightGreen,
+
+        child: Text(
+          text,
+          style: TextStyle(
+              fontSize: 28,
+              fontFamily: "Tetu",
+              color: Color.fromARGB(255, 240, 240, 240),
+              shadows: [
+                Shadow(
+                  offset: Offset(1.0, 4.0),
+                  blurRadius: 3.0,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ]),
+        ),
+        //child: Image.asset("images/txt01.png"),
+      ),
     );
   }
 }

@@ -37,7 +37,7 @@ class KiyakuPage extends StatelessWidget {
                     ),
                     child: RaisedButton(
                       onPressed: () =>
-                          Navigator.of(context).pushNamed("/form0"),
+                          Navigator.of(context).pop(),
                       padding: EdgeInsets.only(
                           top: 10, left: 30, right: 30, bottom: 10),
                       shape: StadiumBorder(),

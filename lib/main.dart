@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:treasureapp/title.dart';
 import 'package:treasureapp/menu.dart';
 import 'package:treasureapp/about.dart';
 import 'package:treasureapp/map.dart';
 import 'package:treasureapp/map_g.dart';
 import 'package:treasureapp/hunting.dart';
+import 'package:treasureapp/result.dart';
 
 import 'package:treasureapp/form/form0.dart';
 import 'package:treasureapp/form/kiyaku.dart';
@@ -14,6 +16,12 @@ import 'package:treasureapp/form/form_result.dart';
 import 'package:treasureapp/map_2.dart';
 
 void main() {
+  /*
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) {
+    runApp(MyApp());
+  });*/
   runApp(MyApp());
 }
 
@@ -37,12 +45,10 @@ class MyApp extends StatelessWidget {
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        pageTransitionsTheme: PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: CustomPageTransitionBuilder(),
-            TargetPlatform.iOS: CustomPageTransitionBuilder(),
-          }
-        ),
+        pageTransitionsTheme: PageTransitionsTheme(builders: {
+          TargetPlatform.android: CustomPageTransitionBuilder(),
+          TargetPlatform.iOS: CustomPageTransitionBuilder(),
+        }),
         fontFamily: "Tetu",
       ),
       home: TitlePage(),
@@ -53,22 +59,25 @@ class MyApp extends StatelessWidget {
         "/map": (BuildContext context) => MapPage(),
         "/map_g": (BuildContext context) => MapGPage(),
         "/hunting": (BuildContext context) => HuntingPage(),
-
+        "/result": (BuildContext context) => ResultPage(),
         "/form0": (BuildContext context) => FormStartPage(),
         "/kiyaku": (BuildContext context) => KiyakuPage(),
         "/form": (BuildContext context) => FormPage(),
         "/form_result": (BuildContext context) => FormResultPage(),
-
         "/map2": (BuildContext context) => Map2Page(),
       },
     );
   }
 }
 
-
 class CustomPageTransitionBuilder extends PageTransitionsBuilder {
   @override
-  Widget buildTransitions<T>(PageRoute<T> route, BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+  Widget buildTransitions<T>(
+      PageRoute<T> route,
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
     return FadeTransition(opacity: animation, child: child);
   }
 }

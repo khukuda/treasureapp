@@ -1,9 +1,22 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
-import 'package:treasureapp/menu.dart';
+import 'package:vibration/vibration.dart';
 
 class TitlePage extends StatelessWidget {
+  AudioCache _player = AudioCache();
+
+  void se() async {
+    try {
+      await _player.play("audio/decision47.mp3");
+      Vibration.vibrate();
+    } catch (ex) {
+      debugPrint("Exception: " + ex.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _player.load("audio/decision47.mp3");
     return Scaffold(
         body: GestureDetector(
       child: Stack(
@@ -45,7 +58,10 @@ class TitlePage extends StatelessWidget {
         ],
       ),
       //onTap: () => Navigator.push(context, _FadeAnimationCustomRoute(builder: (BuildContext context) => MenuPage())),
-      onTap: () => Navigator.of(context).pushReplacementNamed("/menu"),
+      onTap: (){
+        se();
+        Navigator.of(context).pushReplacementNamed("/menu");
+      },
     ));
   }
 }

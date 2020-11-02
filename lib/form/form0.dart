@@ -21,19 +21,22 @@ class FormStartPage extends StatelessWidget {
               flex: 1,
             ),
             Image.asset(
-              "images/coin.jpg",
+              "images/coin.png",
               fit: BoxFit.cover,
             ),
             Spacer(
               flex: 1,
             ),
             Center(
-                child: Text("5 枚のコインを\n持っています",
-                    textAlign: TextAlign.center,
-                    style: new TextStyle(
-                      color: Colors.black,
-                      fontSize: 34,
-                    ))),
+              child: Text(
+                "5 枚のコインを\n持っています",
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                  color: Colors.black,
+                  fontSize: 34,
+                ),
+              ),
+            ),
             Spacer(
               flex: 2,
             ),
@@ -60,7 +63,7 @@ class FormStartPage extends StatelessWidget {
                   minWidth: 240.0,
                 ),
                 child: RaisedButton(
-                  onPressed: () => Navigator.of(context).pushNamed("/menu"),
+                  onPressed: () => Navigator.of(context).pop(),
                   padding:
                       EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 10),
                   shape: StadiumBorder(),

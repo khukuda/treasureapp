@@ -32,10 +32,10 @@ dependencies:
   geolocator: ^6.0.0+4
   flutter_compass:  ^0.4.3
   arcore_flutter_plugin: ^0.0.6
-  arkit_plugin: ^0.5.1
   google_maps_flutter: ^1.0.3
   audioplayers: ^0.16.1
   vibration: ^1.7.1
+  flutter_svg: ^0.19.1
   
 
 
@@ -68,6 +68,8 @@ flutter:
     - images/
     - assets/map01.txt
     - assets/
+    - assets/audio/
+    - images/map/
     - assets/decision7.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see

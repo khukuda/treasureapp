@@ -83,3 +83,31 @@ sceneform.asset('sampledata/treasurechest.obj',
         'default',
         'sampledata/treasurechest.sfa',
         'src/main/assets/treasurechest')
+
+sceneform.asset('sampledata/treasurechest2.obj',
+        'default',
+        'sampledata/treasurechest2.sfa',
+        'src/main/assets/treasurechest2')
+
+
+sceneform.asset('sampledata/treasurechest01.obj',
+        'default',
+        'sampledata/treasurechest01.sfa',
+        'src/main/assets/treasurechest01')
+
+sceneform.asset('sampledata/tresure_box.fbx',
+        'sampledata/tresure_box.fbx.meta',
+        'sampledata/tresure_box.sfa',
+        'src/main/assets/tresure_box')
+
+sceneform.asset('sampledata/t01.obj',
+        'default',
+        'sampledata/t01.sfa',
+        'src/main/assets/t01')
+/*
+sceneform.asset('sampledata/chest.obj',
+        'default',
+        'sampledata/chest.sfa',
+        'src/main/assets/chest')*/
+
+        
